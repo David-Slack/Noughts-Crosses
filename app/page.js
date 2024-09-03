@@ -1,23 +1,7 @@
-import {Square} from "@/components/square/Square";
+import Board from "@/components/board/Board";
 
-export default function Board() {
+export default function Page() {
     return (
-        <div className="board">
-            <div className="board-row">
-                <Square />
-                <Square />
-                <Square />
-            </div>
-            <div className="board-row">
-                <Square />
-                <Square />
-                <Square />
-            </div>
-            <div className="board-row">
-                <Square />
-                <Square />
-                <Square />
-            </div>
-        </div>
+        <Board/>
     );
 }
