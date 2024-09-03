@@ -3,24 +3,6 @@ import {calculateWinner} from "@/helpers/calculateWinner";
 
 export default function Board({ xIsNext, squares, onPlay }) {
 
-    const boardRows = [...Array(3).keys()].map((row) => {
-        const boardSquares = [...Array(3).keys()].map((col) => {
-            const i = 3*row + col;
-            return (
-                <Square
-                    key={i}
-                    className="clickable"
-                    value={squares[i]}
-                    onSquareClick={() => handleClick(i)}
-                />
-            );
-        });
-
-        return (
-            <div key={row} className="board-row">{boardSquares}</div>
-        )
-    });
-
     function handleClick(i) {
         if (calculateWinner(squares) || squares[i])
             return;
@@ -33,10 +15,33 @@ export default function Board({ xIsNext, squares, onPlay }) {
         onPlay(nextSquares);
     }
 
-    const winner = calculateWinner(squares);
+    const winnerInfo = calculateWinner(squares);
+    const winner = winnerInfo ? winnerInfo[0] : null;
+    const winningLine = winnerInfo ? winnerInfo[1] : [];
     let status = 'Next player: ' + (xIsNext ? 'X' : 'O');
-    if (winner)
+    if (winner) {
         status = 'Winner: ' + winner;
+        console.log(winningLine);
+    }
+
+    const boardRows = [...Array(3).keys()].map((row) => {
+        const boardSquares = [...Array(3).keys()].map((col) => {
+            const i = 3*row + col;
+            return (
+                <Square
+                    key={i}
+                    className="clickable"
+                    value={squares[i]}
+                    onSquareClick={() => handleClick(i)}
+                    winning={winningLine.includes(i)}
+                />
+            );
+        });
+
+        return (
+            <div key={row} className="board-row">{boardSquares}</div>
+        )
+    });
 
     return (
         <>
