@@ -1,12 +1,7 @@
-"use client"
-
 import {Square} from "@/components/square/Square";
-import {useState} from "react";
 import {calculateWinner} from "@/helpers/calculateWinner";
 
-export default function Board() {
-    const [xIsNext, setXIsNext] = useState(true);
-    const [squares, setSquares] = useState(Array(9).fill(null));
+export default function Board({ xIsNext, squares, onPlay }) {
 
     function handleClick(i) {
         if (calculateWinner(squares) || squares[i]) {
@@ -14,12 +9,11 @@ export default function Board() {
         }
         const nextSquares = squares.slice();
         if (xIsNext) {
-            nextSquares[i] = 'X';
+            nextSquares[i] = "X";
         } else {
-            nextSquares[i] = 'O';
+            nextSquares[i] = "O";
         }
-        setSquares(nextSquares);
-        setXIsNext(!xIsNext);
+        onPlay(nextSquares);
     }
 
     const winner = calculateWinner(squares);
@@ -31,7 +25,7 @@ export default function Board() {
     }
 
     return (
-        <div className="board">
+        <>
             <div className="status">{status}</div>
             <div className="board-row">
                 <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
@@ -48,6 +42,6 @@ export default function Board() {
                 <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
                 <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
             </div>
-        </div>
+        </>
     );
 }
