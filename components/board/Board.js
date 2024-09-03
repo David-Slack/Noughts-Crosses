@@ -9,6 +9,7 @@ export default function Board({ xIsNext, squares, onPlay }) {
             return (
                 <Square
                     key={i}
+                    className="clickable"
                     value={squares[i]}
                     onSquareClick={() => handleClick(i)}
                 />

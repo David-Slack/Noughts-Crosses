@@ -6,6 +6,7 @@ import {useState} from "react";
 export default function Game() {
     const [history, setHistory] = useState([Array(9).fill(null)]);
     const [currentMove, setCurrentMove] = useState(0);
+    const [ascending, setAscending] = useState(true);
     const xIsNext = currentMove % 2 === 0;
     const currentSquares = history[currentMove];
 
@@ -13,6 +14,10 @@ export default function Game() {
         const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
         setHistory(nextHistory);
         setCurrentMove(nextHistory.length - 1);
+    }
+
+    function toggleDisplayOrder() {
+        setAscending(!ascending);
     }
 
     function jumpTo(nextMove) {
@@ -41,8 +46,12 @@ export default function Game() {
                 <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
             </div>
             <div className="game-info">
-                <h2>Game History</h2>
-                <ol>{moves}</ol>
+                <h2>Game History { ascending ?
+                    <span className="clickable" onClick={toggleDisplayOrder}>&#11165;</span>
+                    :
+                    <span className="clickable" onClick={toggleDisplayOrder}>&#11167;</span>
+                }</h2>
+                <ol>{ascending ? moves : moves.slice().reverse()}</ol>
             </div>
         </div>
     );

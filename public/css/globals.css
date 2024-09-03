@@ -91,7 +91,9 @@ body {
     display: flex;
     flex-direction: row;
 }
-
+.clickable{
+    cursor: pointer;
+}
 .game-info {
     margin-left: 20px;
 }
