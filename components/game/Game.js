@@ -26,7 +26,7 @@ export default function Game() {
 
         return (
             <li key={move}>
-                {history.length === move+1 ?
+                {move === currentMove ?
                     `This is move ${move}`
                     :
                     <button onClick={() => jumpTo(move)}>{description}</button>
