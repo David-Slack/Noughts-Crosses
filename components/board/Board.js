@@ -19,10 +19,8 @@ export default function Board({ xIsNext, squares, onPlay }) {
     const winner = winnerInfo ? winnerInfo[0] : null;
     const winningLine = winnerInfo ? winnerInfo[1] : [];
     let status = 'Next player: ' + (xIsNext ? 'X' : 'O');
-    if (winner) {
+    if (winner)
         status = 'Winner: ' + winner;
-        console.log(winningLine);
-    }
 
     const boardRows = [...Array(3).keys()].map((row) => {
         const boardSquares = [...Array(3).keys()].map((col) => {
